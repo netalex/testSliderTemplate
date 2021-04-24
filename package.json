@@ -1,0 +1,76 @@
+{
+  "name": "aa_html_boilerplate",
+  "version": "1.0.0",
+  "description": "my personal static html template from https://wweb.dev/blog/how-to-create-static-website-npm-scripts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cp node_modules/html5-test-page/index.html ./test.html",
+    "clean": "rimraf dist/*",
+    "css:autoprefixer": "postcss -u autoprefixer -r dist/*.css",
+    "css:scss": "node-sass --output-style compressed -o dist src/scss",
+    "css:lint": "stylelint src/scss/*.scss --syntax scss || true",
+    "build:css": "yarn run css:lint && yarn run css:scss && yarn run css:autoprefixer",
+    "build:js": "webpack --mode=production",
+    "build:html": "posthtml -c posthtml.json",
+    "build:images": "imagemin src/images/**/* --out-dir=dist/images",
+    "build": "run-s build:*",
+    "dev": "webpack serve",
+    "serve": "webpack && yarn run dev",
+    "watch:css": "onchange \"src/scss\" -- yarn run build:css",
+    "watch:html": "onchange \"src/views\" -- yarn run build:html",
+    "watch:images": "onchange \"src/images\" -- yarn run build:images",
+    "watch:js": "onchange \"src/js\" -- webpack --mode=development",
+    "watch": "run-p serve watch:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netalex/AA_HTML_Boilerplate.git"
+  },
+  "keywords": [
+    "html",
+    "template",
+    "boilerplate"
+  ],
+  "author": "netalex <aprile.alessandro@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/netalex/AA_HTML_Boilerplate/issues"
+  },
+  "homepage": "https://github.com/netalex/AA_HTML_Boilerplate#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.12.1",
+    "autoprefixer": "^10.0.1",
+    "babel-loader": "^8.1.0",
+    "browser-sync": "^2.26.13",
+    "browser-sync-webpack-plugin": "^2.2.2",
+    "eslint": "^7.12.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-loader": "^4.0.2",
+    "htmlnano": "^0.2.7",
+    "imagemin-cli": "^6.0.0",
+    "node-sass": "^5.0.0",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "postcss": "8.1.0",
+    "postcss-cli": "^8.2.0",
+    "posthtml": "^0.13.4",
+    "posthtml-cli": "^0.8.0",
+    "posthtml-modules": "^0.6.2",
+    "stylelint": "^13.7.2",
+    "stylelint-config-standard": "^20.0.0",
+    "webpack": "^5.3.2",
+    "webpack-cli": "^4.1.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "browserslist": "^4.14.6",
+    "dot": "^1.1.3",
+    "dotjs-loader": "^0.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "html5-test-page": "^0.8.0"
+  },
+  "browserslist": [
+    "defaults"
+  ]
+}
